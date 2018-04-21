@@ -10,6 +10,11 @@
   },
   "author": "Osamah Aldoaiss",
   "license": "ISC",
+  "keywords": ["react", "ecosystem-react", "react-component", "async", "loading"],
+  "repository": {
+    "type": "git",
+    "url": "saifadin/react-loading-delay"
+  },
   "peerDependencies": {
     "react": "*"
   },
