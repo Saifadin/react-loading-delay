@@ -1,6 +1,6 @@
 {
   "name": "react-loading-delay",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A simple component to delay the rendering of the UI",
   "main": "lib/index.js",
   "scripts": {
