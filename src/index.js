@@ -4,22 +4,34 @@ import PropTypes from 'prop-types';
 class LoadingDelay extends React.PureComponent {
   state = {
     isLoading: this.props.check,
-    isDelaying: true,
+    isDelaying: this.props.check,
     delay: this.props.delay
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.check && nextProps.check !== this.state.isLoading) {
-      this.setState({
-        isLoading: nextProps.check
-      });
-
-      setTimeout(() => {
+      this.timeout = setTimeout(() => {
         this.setState({
           isDelaying: false
         });
-      }, nextProps.delay);
+      }, this.state.delay);
+
+      return this.setState({
+        isLoading: nextProps.check
+      });
     }
+
+    if (nextProps.check && !this.state.isLoading && !this.state.isDelaying) {
+      return this.setState({
+        isLoading: nextProps.check,
+        isDelaying: true,
+        delay: nextProps.delay
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.state.timeout);
   }
 
   render() {
