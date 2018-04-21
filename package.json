@@ -1,6 +1,6 @@
 {
   "name": "react-loading-delay",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "A simple component to delay the rendering of the UI",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,13 @@
   },
   "author": "Osamah Aldoaiss",
   "license": "ISC",
-  "keywords": ["react", "ecosystem-react", "react-component", "async", "loading"],
+  "keywords": [
+    "react",
+    "ecosystem-react",
+    "react-component",
+    "async",
+    "loading"
+  ],
   "homepage": "https://github.com/Saifadin/react-loading-delay",
   "repository": {
     "type": "git",
