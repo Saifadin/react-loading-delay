@@ -14,7 +14,7 @@ With this component you can delay the rendering for as long as you need.
 
 | Propname   | Type     | required | Description |
 | ---------- | -------- | -------- | ----------- |
-| `check`    | boolean  | true     | This props needs to switch from `true` to `false` for the delay to take effect. |
+| `check`    | boolean  | true     | When this prop is `true` the delay will be started. |
 | `delay`    | number   | true     | delay in milliseconds |
 | `children` | function | true     | Function that gets the output props |
 
@@ -23,7 +23,7 @@ With this component you can delay the rendering for as long as you need.
 | Propname     | Type    | Description |
 | ------------ | ------- | ----------- |
 | `isLoading`  | boolean | This prop is a mirror of the `check` prop |
-| `isDelaying` | boolean | This prop will stay `true` until `isLoading` is false and the delay is triggered. This prop changes to `false` when the delay is over. |
+| `isDelaying` | boolean | This prop will be `true` until the delay is over. |
 
 ## Example
 
@@ -36,18 +36,18 @@ const loading = true;
 
 <LoadingDelay check={loading} delay={3000}>
   {({ isLoading, isDelaying }) => {
-    if (isLoading) return 'Data still loading';
     if (isDelaying) return 'UI being delayed';
+    if (isLoading) return 'Data still loading after delay';
     return 'Loading and delay done';
   }}
 </LoadingDelay>
 ```
 
-So what happens here is that while the `check` prop is `true`, the delay won't be starting. The passed down prop named `isLoading` will mirror the check passed into the component, meanwhile `isDelaying` will return `true`.
+So what happens here is when the value passed in the `check` prop is `true`, the delay will be initiated. The passed down prop named `isLoading` will mirror this value passed into the component, meanwhile `isDelaying` will return `true`.
 
-When `check` changes from `true` to `false` the delay will be initiated and `isDelaying` will change to `false` as soon as the delay is over. The moment this prop is `false` you should render your UI with the successfully fetched data.
+When the delay is over, `isDelaying` will be returned as `false` and the content of the child function will be re-rendered. 
 
-This package does not take care of fetching data, it is just facilitating a small delay for the UI to prevent pesky flickers in the UI.
+This package does not take care of fetching data, it is just facilitating a small delay for the UI to prevent pesky flickers.
 
 ## Example with [Apollo Client](https://www.apollographql.com/docs/react/)
 
@@ -62,8 +62,7 @@ import LoadingDelay from 'react-loading-delay';
     return (
       <LoadingDelay check={loading} delay={1000}>
         {({ isLoading, isDelaying }) => {
-          if (isLoading) return 'GraphQL still querying';
-          if (isDelaying) return 'UI being delayed';
+          if (isDelaying || isLoading) return 'UI being delayed for 1s or GraphQL still querying after delay';
           return 'Loading and delay done';
         }}
       </LoadingDelay>
@@ -71,8 +70,3 @@ import LoadingDelay from 'react-loading-delay';
   }}
 </Query>
 ```
-
-## TODO
-
-- [ ] Check recurring changes to the `check` prop after the first delay
-- [ ] Add a max wait if the data fetching takes longer then the delay
